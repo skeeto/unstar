@@ -3,8 +3,22 @@ package unstar;
 import java.awt.AWTException;
 import java.io.IOException;
 
-public class Launcher {
-    public static void main(String[] args) {
+/**
+ * The main class.
+ */
+public final class Launcher {
+
+    /**
+     * Hidden constructor.
+     */
+    private Launcher() {
+    }
+
+    /**
+     * The main method.
+     * @param args  the command line arguments
+     */
+    public static void main(final String[] args) {
         String prefix = "";
         String start = "";
         if (args.length > 0) {
