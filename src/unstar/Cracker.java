@@ -9,11 +9,18 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.rmi.UnknownHostException;
 import java.util.Arrays;
 import lombok.extern.java.Log;
 
 @Log
 public class Cracker extends Robot implements Runnable {
+
+    public static final String REPORT_IP = "10.0.2.2";
+    public static final int REPORT_PORT = 2000;
 
     public static final int CODELEN = 8;
 
@@ -77,6 +84,15 @@ public class Cracker extends Robot implements Runnable {
                 log.severe("FOUND " + code);
                 out.println(code);
                 out.flush();
+                try {
+                    byte[] msg = (code + "\n").getBytes();
+                    InetAddress dest = InetAddress.getByName(REPORT_IP);
+                    DatagramPacket packet =
+                        new DatagramPacket(msg, msg.length, dest, REPORT_PORT);
+                    new DatagramSocket().send(packet);
+                } catch (Exception e) {
+                    log.warning("Unable to report serial code.");
+                }
             }
             check.destroy();
         }
