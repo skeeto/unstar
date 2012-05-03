@@ -56,7 +56,7 @@ public final class Cracker extends Robot implements Runnable {
     private final String prefix;
 
     /** The counter to increment to get codes to try. */
-    private int counter;
+    private long counter;
 
     /** Place to write out found codes. */
     private final PrintWriter out;
@@ -209,11 +209,11 @@ public final class Cracker extends Robot implements Runnable {
      * @param val  the number to encode
      * @return the serial code
      */
-    public static String encode(final int len, final int val) {
+    public static String encode(final long len, final long val) {
         StringBuilder str = new StringBuilder();
-        int div = val;
+        long div = val;
         while (div > 0) {
-            int digit = div % DIGITS.length;
+            int digit = (int) (div % DIGITS.length);
             str.append(DIGITS[digit]);
             div = div / DIGITS.length;
         }
@@ -224,12 +224,12 @@ public final class Cracker extends Robot implements Runnable {
     }
 
     /**
-     * Decode a serial code into a number.
+     * Decode a serial code longo a number.
      * @param value  the serial code
      * @return the number for this code
      */
-    public static int decode(final String value) {
-        int total = 0;
+    public static long decode(final String value) {
+        long total = 0;
         for (int i = 0; i < value.length(); i++) {
             char c = value.toUpperCase().charAt(i);
             total = total * DIGITS.length + Arrays.binarySearch(DIGITS, c);
