@@ -92,12 +92,11 @@ public final class Cracker extends Robot implements Runnable {
 
             /* Enter the serial code. */
             Process stars = launch();
-            sleep(1.0);
             click(SERIAL_BOX);
             type(code);
             type(KeyEvent.VK_ENTER);
             mouseMove(0, 0);
-            sleep(1.0);
+            sleep(0.25);
             if (get(SERIAL_BOX).equals(SERIAL_COLOR)) {
                 log.info("Invalid code");
                 stars.destroy();
@@ -107,7 +106,6 @@ public final class Cracker extends Robot implements Runnable {
 
             /* Make sure it stuck. */
             Process check = launch();
-            sleep(1.0);
             click(SERIAL_BOX);
             if (get(SERIAL_BOX).equals(SERIAL_COLOR)) {
                 log.info("Fake code");
@@ -137,6 +135,7 @@ public final class Cracker extends Robot implements Runnable {
         Runtime runtime = Runtime.getRuntime();
         try {
             Process proc = runtime.exec(STARS_COMMAND);
+            sleep(0.5);
             return proc;
         } catch (Exception e) {
             log.warning(e.getMessage());
