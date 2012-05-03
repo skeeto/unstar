@@ -35,7 +35,7 @@ public class Cracker extends Robot implements Runnable {
         = new File(System.getProperty("user.home")
                    + "/.wine/drive_c/windows/Stars.ini");
 
-    //private static final Point SERIAL_BOX = new Point(904, 638); // Host
+    //private static final Point SERIAL_BOX = new Point(770, 570); // Host
     private static final Point SERIAL_BOX = new Point(430, 410); // VM
     private static final Color SERIAL_COLOR = new Color(212, 208, 200);
 
