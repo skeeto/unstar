@@ -17,7 +17,13 @@ import lombok.extern.java.Log;
 
 /**
  * Automates the cracking process by firing up Stars! and guessing
- * codes.
+ * codes. Assuming the host will be available to the VM (as a gateway)
+ * at the address <code>REPORT_IP</code>, the host can receive
+ * discovered codes by running netcat like so.
+ *
+ * <pre>
+ * nc -uklw1 2000
+ * </pre>
  */
 @Log
 public final class Cracker extends Robot implements Runnable {
