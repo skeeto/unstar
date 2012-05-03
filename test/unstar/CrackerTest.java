@@ -20,6 +20,7 @@ public class CrackerTest {
 
     @Test
     public void serialTest() {
+        /* Public */
         assertEquals(0x1009db6241eL, Cracker.decode("E2BO659A"));
         assertEquals(0x10120a6bad5L, Cracker.decode("E3C03B2T"));
         assertEquals(0x101e22fa47cL, Cracker.decode("E4TP99BW"));
@@ -28,6 +29,9 @@ public class CrackerTest {
         assertEquals(0x10f0e3321c7L, Cracker.decode("EUTBD0AV"));
         assertEquals(0x2042ff5da94L, Cracker.decode("SAH96KK4"));
         assertEquals(0x2042ff79a65L, Cracker.decode("SAH9910L"));
+
+        /* Discovered */
         assertEquals(0x2042ff197cbL, Cracker.decode("SAH90L3F"));
+        assertEquals(0x2042ff1aabfL, Cracker.decode("SAH90OU7"));
     }
 }
