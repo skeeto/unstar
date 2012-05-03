@@ -2,10 +2,10 @@
 <project name="" default="jar" xmlns:ivy="antlib:org.apache.ivy.ant">
 
   <!-- Project-specific configuration -->
-  <property name="artifactId" value=""/>
-  <property name="description" value=""/>
+  <property name="artifactId" value="unstar"/>
+  <property name="description" value="Brute-force code cracking."/>
   <property name="version" value="0.1"/>
-  <property name="package.main" value="com.nullprogram.${artifactId}"/>
+  <property name="package.main" value="${artifactId}"/>
   <property name="main.class" value="${package.main}.Launcher"/>
   <property name="base.name" value="${artifactId}-${version}"/>
 
