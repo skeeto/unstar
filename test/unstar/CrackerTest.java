@@ -33,5 +33,6 @@ public class CrackerTest {
         /* Discovered */
         assertEquals(0x2042ff197cbL, Cracker.decode("SAH90L3F"));
         assertEquals(0x2042ff1aabfL, Cracker.decode("SAH90OU7"));
+        assertEquals(0x2042ff22bc1L, Cracker.decode("SAH91EBL"));
     }
 }
