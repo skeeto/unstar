@@ -29,10 +29,15 @@ public class CrackerTest {
         assertEquals(0x10f0e3321c7L, Cracker.decode("EUTBD0AV"));
         assertEquals(0x2042ff5da94L, Cracker.decode("SAH96KK4"));
         assertEquals(0x2042ff79a65L, Cracker.decode("SAH9910L"));
+        assertEquals(0x20ea681ff37L, Cracker.decode("SV4GG27R"));
+        assertEquals(0x20f6b14a736L, Cracker.decode("SWMZYHBQ"));
+        assertEquals(0x2006dc96f67L, Cracker.decode("S32AAS87"));
+        assertEquals(0x2042ff5354cl, Cracker.decode("SAH95NWS"));
 
         /* Discovered */
         assertEquals(0x2042ff197cbL, Cracker.decode("SAH90L3F"));
         assertEquals(0x2042ff1aabfL, Cracker.decode("SAH90OU7"));
         assertEquals(0x2042ff22bc1L, Cracker.decode("SAH91EBL"));
+        assertEquals(0x2042ff27201l, Cracker.decode("SAH91S75"));
     }
 }
