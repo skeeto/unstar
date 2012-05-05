@@ -1,7 +1,8 @@
 package unstar;
 
 import java.awt.AWTException;
-import java.io.IOException;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 /**
  * The main class.
@@ -19,20 +20,15 @@ public final class Launcher {
      * @param args  the command line arguments
      */
     public static void main(final String[] args) {
-        String prefix = "";
-        String start = "";
-        if (args.length > 0) {
-            prefix = args[0];
-        }
-        if (args.length > 1) {
-            start = args[1];
+        if (args.length != 1) {
+            System.out.println("Usage: unstar [file]");
         }
         try {
-            new Cracker(prefix, start).run();
+            new Cracker(new FileCodeProvider(new File(args[0]))).run();
         } catch (AWTException e) {
             System.err.println(e);
             System.exit(-1);
-        } catch (IOException e) {
+        } catch (FileNotFoundException e) {
             System.err.println(e);
             System.exit(-1);
         }
