@@ -18,6 +18,9 @@ public final class TcpCodeProvider implements CodeProvider {
     /** The reporting stream. */
     private final PrintStream out;
 
+    /** True if a request for another code has been sent but not yet read. */
+    private boolean requested = false;
+
     /**
      * Create a new provider connection to a remote host.
      * @param host  the remote host
@@ -34,11 +37,19 @@ public final class TcpCodeProvider implements CodeProvider {
 
     @Override
     public String next() {
+        if (!requested) {
+            out.println("*next");
+        }
+        requested = false;
         return delegate.next();
     }
 
     @Override
     public boolean hasNext() {
+        if (!requested) {
+            out.println("*next");
+            requested = true;
+        }
         return delegate.hasNext();
     }
 
@@ -49,6 +60,6 @@ public final class TcpCodeProvider implements CodeProvider {
 
     @Override
     public void remove() {
-        delegate.remove();
+        throw new UnsupportedOperationException();
     }
 }

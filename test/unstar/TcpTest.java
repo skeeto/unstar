@@ -60,12 +60,13 @@ public class TcpTest {
         public void run() {
             Socket client = server.accept();
             PrintStream out = new PrintStream(client.getOutputStream(), true);
+            Scanner in = new Scanner(client.getInputStream());
             for (String code : codes) {
+                assertEquals(in.nextLine(), "*next");
                 out.println(code);
             }
             out.println(InputStreamCodeProvider.TERMINATOR);
             out.flush();
-            Scanner in = new Scanner(client.getInputStream());
             result = in.nextLine();
         }
     }
