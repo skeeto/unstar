@@ -118,7 +118,9 @@
       </classpath>
       <batchtest>
         <formatter type="brief" usefile="false"/>
-        <fileset dir="${build.dir}/test"/>
+        <fileset dir="${build.dir}/test">
+          <include name="**/*Test.class"/>
+        </fileset>
       </batchtest>
     </junit>
   </target>
