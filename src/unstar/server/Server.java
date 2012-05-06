@@ -18,6 +18,9 @@ import lombok.extern.java.Log;
 @Log
 public final class Server implements Runnable {
 
+    /** Default port for the code server. */
+    public static final int DEFAULT_PORT = 2000;
+
     /** Port to listen on. */
     private final int port;
 
