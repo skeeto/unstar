@@ -9,6 +9,11 @@ import java.awt.Toolkit;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import lombok.extern.java.Log;
 
 /**
@@ -19,7 +24,7 @@ import lombok.extern.java.Log;
 public final class Cracker extends Robot implements Runnable {
 
     /** The command to run Stars!. */
-    private static final String[] STARS_COMMAND = {"wine", "stars/stars.exe"};
+    private static final String[] STARS_COMMAND = {"wine", "stars.exe"};
 
     /** Location of the Stars! .ini file. */
     private static final File STARS_INI
@@ -80,7 +85,7 @@ public final class Cracker extends Robot implements Runnable {
             if (get(serialBox).equals(SERIAL_COLOR)) {
                 log.fine("Fake code");
             } else {
-                log.severe("FOUND " + code);
+                log.fine("FOUND " + code);
                 provider.report(code);
             }
             check.destroy();
@@ -166,5 +171,42 @@ public final class Cracker extends Robot implements Runnable {
      */
     private void sleep(final double delay) {
         delay((int) (delay * 1000));
+    }
+
+    /* Set up the executable. */
+    static {
+        try {
+            String tmp = System.getProperty("java.io.tmpdir");
+            File exe = new File(tmp + "/stars.exe");
+            File dll = new File(tmp + "/wavemix.dll");
+            exe.deleteOnExit();
+            dll.deleteOnExit();
+            copy(Launcher.class.getResourceAsStream("res/stars.exe"),
+                 new FileOutputStream(exe));
+            copy(Launcher.class.getResourceAsStream("res/wavemix.dll"),
+                 new FileOutputStream(dll));
+            STARS_COMMAND[1] = exe.getAbsolutePath();
+        } catch (FileNotFoundException e) {
+            log.severe("Could not set up EXE: " + e.getMessage());
+            System.exit(-1);
+        } catch (IOException e) {
+            log.severe("Could not set up EXE: " + e.getMessage());
+            System.exit(-1);
+        }
+    }
+
+    /**
+     * Copy one stream to another.
+     * @param in  the input stream
+     * @param out  the input stream
+     * @throws IOException for IO problems
+     */
+    public static void copy(final InputStream in, final OutputStream out)
+        throws IOException {
+        byte[] buf = new byte[1024];
+        int len = 0;
+        while ((len = in.read(buf)) >= 0) {
+            out.write(buf, 0, len);
+        }
     }
 }
