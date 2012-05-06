@@ -2,6 +2,7 @@ package unstar.server;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.PrintStream;
 
 /**
@@ -28,7 +29,9 @@ public final class Launcher {
         unstar.DeadSimpleFormatter.load();
 
         try {
-            PrintStream out = new PrintStream(new File("valid.log"));
+            File log = new File("valid.log");
+            FileOutputStream fout = new FileOutputStream(log, true);
+            PrintStream out = new PrintStream(fout, true);
             File in = new File(args[0]);
             new Server(in, Server.DEFAULT_PORT, out).run();
         } catch (FileNotFoundException e) {
