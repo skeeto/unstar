@@ -34,12 +34,12 @@ public final class GeneratorCodeProvider implements CodeProvider {
         }
         String ret = start;
         start = encode(CODELEN, decode(start) + 1);
-        return ret;
+        return encode(CODELEN, decode(ret));
     }
 
     @Override
     public boolean hasNext() {
-        return decode(start) < decode(end);
+        return decode(start) <= decode(end);
     }
 
     @Override

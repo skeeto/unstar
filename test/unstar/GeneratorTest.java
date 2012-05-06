@@ -10,12 +10,17 @@ public class GeneratorTest {
 
     @Test
     public void genTest() {
-        CodeProvider gen = new GeneratorCodeProvider("HELLOGONY", "HELLOGOO2");
-        assertEquals("HELLOGONY", gen.next());
-        assertEquals("HELLOGONZ", gen.next());
-        assertEquals("HELLOGOO0", gen.next());
-        assertEquals("HELLOGOO1", gen.next());
-        assertEquals("HELLOGOO2", gen.next());
+        CodeProvider gen = new GeneratorCodeProvider("GONY", "GOO2");
+        assertTrue(gen.hasNext());
+        assertEquals("0000GONY", gen.next());
+        assertTrue(gen.hasNext());
+        assertEquals("0000GONZ", gen.next());
+        assertTrue(gen.hasNext());
+        assertEquals("0000GOO0", gen.next());
+        assertTrue(gen.hasNext());
+        assertEquals("0000GOO1", gen.next());
+        assertTrue(gen.hasNext());
+        assertEquals("0000GOO2", gen.next());
         assertFalse(gen.hasNext());
         boolean thrown = false;
         try {
