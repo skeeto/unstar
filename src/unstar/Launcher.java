@@ -24,6 +24,11 @@ public final class Launcher {
     @Parameter(names = "-s", description = "Get codes from code server.")
     private String host;
 
+    /** Codes from generation. */
+    @Parameter(names = "-g", description =
+               "Get codes by generation (range format \"START:END\").")
+    private String generate;
+
     /**
      * Hidden constructor.
      */
@@ -44,18 +49,33 @@ public final class Launcher {
             usage(-1);
         }
         CodeProvider provider = null;
+        int pcount = 0;
         try {
             if (params.file != null) {
                 provider = new FileCodeProvider(new File(params.file));
+                pcount++;
             } else if (params.host != null) {
                 int port = unstar.server.Server.DEFAULT_PORT;
                 provider = new TcpCodeProvider(params.host, port);
-            } else {
+                pcount++;
+            } else if (params.generate != null) {
+                try {
+                    String start = params.generate.split(":")[0];
+                    String end = params.generate.split(":")[1];
+                    provider = new GeneratorCodeProvider(start, end);
+                    pcount++;
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.err.println("error: bad generator format");
+                    usage(-1);
+                }
+            }
+
+            if (pcount != 1) {
                 System.err.println("error: must select exactly one source");
                 usage(-1);
             }
         } catch (Exception e) {
-            System.err.println("error: " + e.getMessage());
+            System.err.println("error: " + e);
             System.exit(-1);
         }
 
