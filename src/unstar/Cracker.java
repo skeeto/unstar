@@ -25,8 +25,8 @@ public final class Cracker extends Robot implements Runnable {
                    + "/.wine/drive_c/windows/Stars.ini");
 
     /** Point location to test for the serial code box. */
-    private static final Point SERIAL_BOX = new Point(770, 570); // Host
-    //private static final Point SERIAL_BOX = new Point(430, 410); // VM
+    //private static final Point SERIAL_BOX = new Point(770, 570); // Host
+    private static final Point SERIAL_BOX = new Point(430, 410); // VM
 
     /** The color of the serial code box. */
     private static final Color SERIAL_COLOR = new Color(212, 208, 200);
@@ -68,7 +68,7 @@ public final class Cracker extends Robot implements Runnable {
             Process check = launch();
             click(SERIAL_BOX);
             if (get(SERIAL_BOX).equals(SERIAL_COLOR)) {
-                log.info("Fake code");
+                log.fine("Fake code");
             } else {
                 log.severe("FOUND " + code);
                 provider.report(code);
