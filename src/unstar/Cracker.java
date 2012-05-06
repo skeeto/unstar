@@ -73,7 +73,7 @@ public final class Cracker extends Robot implements Runnable {
             mouseMove(0, 0);
             sleep(0.25);
             if (get(serialBox).equals(SERIAL_COLOR)) {
-                log.info("Invalid code");
+                log.fine("FAIL " + code);
                 stars.destroy();
                 continue;
             }
@@ -83,9 +83,9 @@ public final class Cracker extends Robot implements Runnable {
             Process check = launch();
             click(serialBox);
             if (get(serialBox).equals(SERIAL_COLOR)) {
-                log.fine("Fake code");
+                log.fine("FAKE " + code);
             } else {
-                log.fine("FOUND " + code);
+                log.severe("FOUND " + code);
                 provider.report(code);
             }
             check.destroy();
