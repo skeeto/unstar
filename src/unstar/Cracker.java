@@ -2,8 +2,10 @@ package unstar;
 
 import java.awt.AWTException;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Robot;
+import java.awt.Toolkit;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.io.File;
@@ -24,12 +26,17 @@ public final class Cracker extends Robot implements Runnable {
         = new File(System.getProperty("user.home")
                    + "/.wine/drive_c/windows/Stars.ini");
 
-    /** Point location to test for the serial code box. */
-    //private static final Point SERIAL_BOX = new Point(770, 570); // Host
-    private static final Point SERIAL_BOX = new Point(430, 410); // VM
-
     /** The color of the serial code box. */
     private static final Color SERIAL_COLOR = new Color(212, 208, 200);
+
+    /** X offset from center for the serial box test point. */
+    private static final int SERIAL_XOFF = -82;
+
+    /** Y offset from center for the serial box test point. */
+    private static final int SERIAL_YOFF = 26;
+
+    /** Point location to test for the serial code box. */
+    private final Point serialBox;
 
     /** The code provider to test codes from. */
     private final CodeProvider provider;
@@ -41,6 +48,9 @@ public final class Cracker extends Robot implements Runnable {
      */
     public Cracker(final CodeProvider codes) throws AWTException {
         this.provider = codes;
+        Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
+        serialBox = new Point(size.width / 2 + SERIAL_XOFF,
+                              size.height / 2 + SERIAL_YOFF);
     }
 
     @Override
@@ -52,12 +62,12 @@ public final class Cracker extends Robot implements Runnable {
 
             /* Enter the serial code. */
             Process stars = launch();
-            click(SERIAL_BOX);
+            click(serialBox);
             type(code);
             type(KeyEvent.VK_ENTER);
             mouseMove(0, 0);
             sleep(0.25);
-            if (get(SERIAL_BOX).equals(SERIAL_COLOR)) {
+            if (get(serialBox).equals(SERIAL_COLOR)) {
                 log.info("Invalid code");
                 stars.destroy();
                 continue;
@@ -66,8 +76,8 @@ public final class Cracker extends Robot implements Runnable {
 
             /* Make sure it stuck. */
             Process check = launch();
-            click(SERIAL_BOX);
-            if (get(SERIAL_BOX).equals(SERIAL_COLOR)) {
+            click(serialBox);
+            if (get(serialBox).equals(SERIAL_COLOR)) {
                 log.fine("Fake code");
             } else {
                 log.severe("FOUND " + code);
