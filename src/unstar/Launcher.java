@@ -63,13 +63,11 @@ public final class Launcher {
         try {
             Handler handler = new FileHandler("cracker.log");
             Logger.getLogger("").addHandler(handler);
-            for (Handler h : Logger.getLogger("").getHandlers()) {
-                h.setFormatter(DeadSimpleFormatter.get());
-            }
         } catch (IOException e) {
             System.out.println("Failed to create log file: " + e.getMessage());
             System.exit(-1);
         }
+        DeadSimpleFormatter.load();
 
         /* Start testing codes. */
         try {

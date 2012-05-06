@@ -2,6 +2,7 @@ package unstar.server;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintStream;
 
 /**
  * The main class for launching a server.
@@ -24,9 +25,12 @@ public final class Launcher {
             System.exit(-1);
         }
 
+        unstar.DeadSimpleFormatter.load();
+
         try {
+            PrintStream out = new PrintStream(new File("valid.log"));
             File in = new File(args[0]);
-            new Server(in, Server.DEFAULT_PORT, System.out).run();
+            new Server(in, Server.DEFAULT_PORT, out).run();
         } catch (FileNotFoundException e) {
             System.err.println("File not found: " + e.getMessage());
             System.exit(-1);
